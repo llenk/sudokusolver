@@ -15,18 +15,17 @@ function createBoard() {
     for (var j=0; j<9; j++) {
       board[i][j] = new Object();
       board[i][j].value = "";
-      board[i][j].poss = new Array();
+      board[i][j].poss = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
       board[i][j].indexVals = [i, j];
     }
   }
   return board;
 }
 
-function checkPossInitial(board, element) {
-  //Goes through and checks all possibilites for single element. Used to create
-  //initial possibilies array. Inefficient to do every time program checks
-  //possibilies.
-  element.poss = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+function checkPossElement(board, element) {
+  //Goes through and checks all possibilites for single element.
+  var a = element.indexVals[0];
+  var b = element.indexVals[1];
   //check horizontal row
   for (var i=0; i<9; i++) {
     if (i!=element.indexVals[0]) {
@@ -51,5 +50,311 @@ function checkPossInitial(board, element) {
       }
     }
   }
-  //check rest of box
+  //check rest of box (4 elements left)
+  if (a%3 === 0) {
+    if (b%3 === 0) {
+      //upper left
+      if (board[a+1][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+1][b+2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b+2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+2][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+2][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+2][b+2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+2][b+2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+    }
+    else if (b%3 === 1) {
+      //center left
+      if (board[a+1][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+1][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+2][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+2][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+2][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+2][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+    }
+    else if (b%3 === 2) {
+      //lower left
+      if (board[a+1][b-2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b-2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+1][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+2][b-2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+2][b-2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+2][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+2][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+    }
+  }
+  if (a%3 === 1) {
+    if (b%3 === 0) {
+      //upper center
+      if (board[a-1][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-1][b+2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b+2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+1][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+1][b+2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b+2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+    }
+    else if (b%3 === 1) {
+      //center
+      if (board[a-1][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-1][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+1][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+1][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+    }
+    else if (b%3 === 2) {
+      //lower center
+      if (board[a-1][b-2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b-2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-1][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+1][b-2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b-2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a+1][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a+1][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+    }
+  }
+  if (a%3 === 2) {
+    if (b%3 === 0) {
+      //upper right
+      if (board[a-2][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-2][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-2][b+2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-2][b+2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-1][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-1][b+2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b+2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+    }
+    else if (b%3 === 1) {
+      //center right
+      if (board[a-2][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-2][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-2][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-2][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-1][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-1][b+1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b+1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+    }
+    else if (b%3 === 2) {
+      //lower right
+      if (board[a-2][b-2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-2][b-2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-2][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-2][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-1][b-2].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b-2].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+      if (board[a-1][b-1].value) {
+        for (var j=0; j<element.poss.length; j++) {
+          if (element.poss[j]===board[a-1][b-1].value) {
+            element.poss.splice(j, 1);
+          }
+        }
+      }
+    }
+  }
+}
+
+function fillInBoard(board) {
+  for (var i=0; i<9; i++) {
+    for (var j=0; j<9; j++) {
+      if (board[i][j].poss.length===1) {
+        document.getElementById('vc_'+i+'_'+j).innerHTML = board[i][j].poss[0];
+        board[i][j].value = board[i][j].poss[0];
+        board[i][j].poss = [];
+      }
+    }
+  }
+}
+
+function checkPossBoard(board) {
+  //checks possibilities for whole board
+  for (var i=0; i<9; i++) {
+    for (var j=0; j<9; j++) {
+      checkPossElement(board, board[i][j]);
+    }
+  }
 }
