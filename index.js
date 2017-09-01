@@ -339,15 +339,18 @@ function checkPossElement(board, element) {
 }
 
 function fillInBoard(board) {
+  var progress = false;
   for (var i=0; i<9; i++) {
     for (var j=0; j<9; j++) {
       if (board[i][j].poss.length===1) {
         document.getElementById('vc_'+i+'_'+j).innerHTML = board[i][j].poss[0];
         board[i][j].value = board[i][j].poss[0];
         board[i][j].poss = [];
+        progress = true;
       }
     }
   }
+  return progress;
 }
 
 function checkPossBoard(board) {
@@ -356,5 +359,44 @@ function checkPossBoard(board) {
     for (var j=0; j<9; j++) {
       checkPossElement(board, board[i][j]);
     }
+  }
+}
+
+function checkSolved(board) {
+  var solved = true;
+  for (var i=0; i<9; i++) {
+    for (var j=0; j<9; j++) {
+      if (board[i][j].value === " ") {
+        solved = false;
+      }
+    }
+  }
+  return solved;
+}
+
+function printBoard(board) {
+  for (var i=0; i<9; i++) {
+    var string = "";
+    for (var j=0; j<9; j++) {
+      string += board[j][i].value + " ";
+    }
+    console.log(string);
+  }
+}
+
+function playGame() {
+  var board = createBoard();
+  sudokuToArray(board);
+  var makingProgress = true;
+  while (!checkSolved(board) && makingProgress) {
+    makingProgress = false;
+    checkPossBoard(board);
+    makingProgress = fillInBoard(board);
+  }
+  if (checkSolved(board)) {
+    alert("Solved!");
+  }
+  else {
+    alert("Sorry, I couldn't solve it.")
   }
 }
